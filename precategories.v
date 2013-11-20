@@ -103,9 +103,13 @@ Definition is_precategory (C : precategory_data) :=
                          identity a ;; f == f)
                      (forall (a b : C) (f : a --> b),
                          f ;; identity b == f))
+           (dirprod
             (forall (a b c d : C) 
                     (f : a --> b)(g : b --> c) (h : c --> d),
-                     f ;; (g ;; h) == (f ;; g) ;; h).
+                     f ;; (g ;; h) == (f ;; g) ;; h)
+            (forall (a b c d : C) 
+                    (f : a --> b)(g : b --> c) (h : c --> d),
+                     (f ;; g) ;; h == f ;; (g ;; h))).
 
 Definition precategory := total2 is_precategory.
 
@@ -124,7 +128,12 @@ Definition id_right (C : precategory) :
 Definition assoc (C : precategory) : 
    forall (a b c d : C) 
           (f : a --> b)(g : b --> c) (h : c --> d),
-                     f ;; (g ;; h) == (f ;; g) ;; h := pr2 (pr2 C).
+                     f ;; (g ;; h) == (f ;; g) ;; h := pr1 (pr2 (pr2 C)).
+
+Definition assoc'(C : precategory) : 
+   forall (a b c d : C) 
+          (f : a --> b)(g : b --> c) (h : c --> d),
+                     (f ;; g) ;; h == f ;; (g ;; h) := pr2 (pr2 (pr2 C)).
 
 (** Any equality on objects a and b induces a morphism from a to b *)
 

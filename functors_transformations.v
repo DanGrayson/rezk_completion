@@ -701,6 +701,10 @@ Proof.
   apply nat_trans_eq.
   intro x; simpl.
   apply assoc.
+  
+  apply nat_trans_eq.
+  intro x; simpl.
+  apply assoc'.
 Qed.
 
 Definition functor_precategory (C C' : precategory): precategory := 

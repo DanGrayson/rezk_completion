@@ -230,16 +230,11 @@ Proof.
 Definition is_precategory_sub_category (C : precategory)(C':sub_precategories C) :
     is_precategory (sub_precategory_data C C').
 Proof.
-  repeat split;
-  simpl; intros.
-  unfold sub_precategory_comp.
-  apply eq_in_sub_precategory. simpl.
-  apply id_left.
-  apply eq_in_sub_precategory. simpl.
-  apply id_right.
-  apply eq_in_sub_precategory.
-  simpl.
-  apply assoc.
+  repeat split; simpl; intros.
+  apply eq_in_sub_precategory. simpl. apply id_left.
+  apply eq_in_sub_precategory. simpl. apply id_right.
+  apply eq_in_sub_precategory. simpl. apply assoc.
+  apply eq_in_sub_precategory. simpl. apply assoc'.
 Qed.
 
 Definition carrier_of_sub_precategory (C : precategory)(C':sub_precategories C) :

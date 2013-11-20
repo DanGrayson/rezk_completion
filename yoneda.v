@@ -68,15 +68,14 @@ Ltac unf := unfold identity,
 
 Lemma is_precat_opp_precat_data (C : precategory) : is_precategory (opp_precat_data C).
 Proof.
-  repeat split; simpl.
-  intros. unf.
-  apply id_right.
-  intros; unf.
-  apply id_left.
-  intros; unf.
-  rewrite assoc.
-  apply idpath.
-Qed.
+  exact (dirprodpair
+    (dirprodpair
+      (fun a b f => id_right C b a f)
+      (fun a b f => id_left  C b a f))
+    (dirprodpair
+      (fun a b c d f g h => assoc' C d c b a h g f)
+      (fun a b c d f g h => assoc  C d c b a h g f))).
+Defined.
 
 Definition opp_precat (C : precategory) : precategory := 
   tpair _ (opp_precat_data C) (is_precat_opp_precat_data C).

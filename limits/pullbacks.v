@@ -11,6 +11,7 @@ Require Import RezkCompletion.auxiliary_lemmas_HoTT.
 Require Import RezkCompletion.precategories.
 
 Require Import RezkCompletion.limits.aux_lemmas_HoTT.
+Require Import RezkCompletion.limits.terminal.
 
 Local Notation "a --> b" := (precategory_morphisms a b)(at level 50).
 Local Notation "f ;; g" := (compose f g)(at level 50).
@@ -59,25 +60,33 @@ Definition PullbackSqrCommutes {a b c : C} {f : b --> a} {g : c --> a}
    (Pb : Pullback f g) : 
     PullbackPr1 Pb ;; g == PullbackPr2 Pb ;; f . 
 Proof. 
-  apply (pr1 (pr2 Pb)).
+  exact (pr1 (pr2 Pb)).
 Qed.
+
+Definition isPullback_Pullback {a b c : C} {f : b --> a}{g : c --> a} 
+   (P : Pullback f g) : 
+  isPullback f g (PullbackPr1 P) (PullbackPr2 P) (PullbackSqrCommutes P).
+Proof.
+  exact (pr2 (pr2 P)).
+Defined.
+Coercion isPullback_Pullback : Pullback >-> isPullback.
 
 Definition PullbackArrow {a b c : C} {f : b --> a} {g : c --> a} 
    (Pb : Pullback f g) e (h : e --> b) (k : e --> c)(H : k ;; g == h ;; f) : e --> Pb :=
-   pr1 (pr1 (pr2 (pr2 Pb) e h k H)).
+   pr1 (pr1 (isPullback_Pullback Pb e h k H)).
 
 Lemma PullbackArrow_PullbackPr1 {a b c : C} {f : b --> a} {g : c --> a} 
    (Pb : Pullback f g) e (h : e --> b) (k : e --> c)(H : k ;; g == h ;; f) :
    PullbackArrow Pb e h k H ;; PullbackPr1 Pb == k.
 Proof.
-  apply (pr2 (pr1 (pr2 (pr2 Pb) e h k H))).
+  exact (pr1 (pr2 (pr1 (isPullback_Pullback Pb e h k H)))).
 Qed.
 
 Lemma PullbackArrow_PullbackPr2 {a b c : C} {f : b --> a} {g : c --> a} 
    (Pb : Pullback f g) e (h : e --> b) (k : e --> c)(H : k ;; g == h ;; f) :
    PullbackArrow Pb e h k H ;; PullbackPr2 Pb == h.
 Proof.
-  apply (pr2 (pr2 (pr1 (pr2 (pr2 Pb) e h k H)))).
+  exact (pr2 (pr2 (pr1 (isPullback_Pullback Pb e h k H)))).
 Qed.
 
 
@@ -103,10 +112,6 @@ Proof.
   apply isapropifcontr.
   apply (pr2 (pr2 Pb)).
   apply PullbackSqrCommutes.
-(*  set (H:= pr2 (pr2 (pr2 (pr2 Pb)))).  simpl in H.
-  set (HH:= H Pb (PullbackPr2 Pb) (PullbackPr1 Pb) (PullbackSqrCommutes Pb)).
-  apply HH.
-*)
   apply (base_paths _ _ H2).
 Qed.
 
@@ -277,6 +282,39 @@ Proof.
 Qed.
 
 End Universal_Unique.
+
+
+Section product_from_pullback.
+
+Variable T : Terminal C.
+
+
+
+Variable P : Pullbacks.
+
+Definition ProductCone (c d : C) := 
+     P (TerminalObject _ T) c d (TerminalArrow _ _ c) (TerminalArrow _ _ d).
+
+Definition Product (c d : C) : C := PullbackObject (ProductCone c d).
+
+(* todo: change the order... *)
+Definition ProductPr1 (c d : C) : Product c d --> c  :=
+     PullbackPr2 (ProductCone c d).
+Definition ProductPr2 (c d : C) : Product c d --> d  :=
+     PullbackPr1 (ProductCone c d).
+
+Definition ProductArrow (a c d : C)(f : a --> c) (g : a --> d) : a --> Product c d.
+Proof.
+  apply (PullbackArrow (P _ _ _ _ _ ) _ f g).
+  apply proofirrelevance.
+  apply isapropifcontr.
+  apply (pr2 T a).
+Defined.
+
+(* todo: prove some laws about pre- and postcomposition with [ProductArrow] *)
+
+End product_from_pullback.
+
 
 
 End def_pb.

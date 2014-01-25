@@ -11,3 +11,5 @@ N*.cmxs
 N*.native
 N*.o
 .*.aux
+*.timing
+*.aux

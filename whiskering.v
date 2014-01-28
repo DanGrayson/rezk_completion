@@ -33,6 +33,7 @@ Import RezkCompletion.pathnotations.PathNotations.
 Require Import RezkCompletion.auxiliary_lemmas_HoTT.
 
 Require Import RezkCompletion.precategories.
+Import ob_coercion.
 Require Import RezkCompletion.functors_transformations.
 
 Ltac pathvia b := (apply (@pathscomp0 _ _ b _ )).

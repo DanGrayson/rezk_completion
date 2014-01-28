@@ -11,6 +11,7 @@ Require Import RezkCompletion.pathnotations.
 Import RezkCompletion.pathnotations.PathNotations.
 Require Import RezkCompletion.auxiliary_lemmas_HoTT.
 Require Import RezkCompletion.precategories.
+Import ob_coercion.
 Require Import RezkCompletion.functors_transformations.
 Require Import RezkCompletion.limits.aux_lemmas_HoTT.
 

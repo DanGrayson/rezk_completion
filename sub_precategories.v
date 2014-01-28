@@ -46,6 +46,7 @@ Import RezkCompletion.pathnotations.PathNotations.
 Require Import RezkCompletion.auxiliary_lemmas_HoTT.
 
 Require Import RezkCompletion.precategories.
+Import ob_coercion.
 Require Import RezkCompletion.functors_transformations.
 
 Local Notation "a --> b" := (precategory_morphisms a b)(at level 50).

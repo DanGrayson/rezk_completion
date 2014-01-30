@@ -31,17 +31,16 @@ Variable C : precategory.
 Variable T : Terminal C.
 
 Definition isSubobjectClassifier (Omega : C) (TrueArrow : T --> Omega) :=
-    forall (s b : C) (m : mono C s b), iscontr (
-      total2 (fun phi : b --> Omega =>
-      total2 (fun H : m ;; phi == TerminalArrow C T s ;; TrueArrow  => 
-                    isPullback C TrueArrow phi m (TerminalArrow _ _ s) H))).
+    forall (s b : C) (m : mono C s b), iscontr (total2 
+         (fun phiH : total2 (fun phi : b --> Omega => 
+                   m ;; phi == TerminalArrow s ;; TrueArrow) =>
+                isPullback C (pr1 phiH) TrueArrow m (TerminalArrow s) (pr2 phiH))).
 
 
 Definition SubobjectClassifier :=  
-    total2 (fun Omega : C => 
-    total2 (fun TrueArrow : T --> Omega =>
-           isSubobjectClassifier Omega TrueArrow)).
-Definition Omega (S : SubobjectClassifier) : C := pr1 S.
+    total2 (fun OmegaTrueArrow : total2 (fun b => T --> b) =>
+           isSubobjectClassifier (pr1 OmegaTrueArrow) (pr2 OmegaTrueArrow)).
+Definition Omega (S : SubobjectClassifier) : C := pr1 (pr1 S).
 
 (* todo : prove unicity of subobject classifer *)
 

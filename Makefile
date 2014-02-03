@@ -38,6 +38,7 @@ else
 COQC = : compiling $*.v ; $(TIMECMD) $(COQBIN)coqc
 endif
 
+show-vfiles:; @for i in $(VFILES) ; do echo `pwd`/$$i ; done
 topten: $(VOFILES)
 	@find . -name \*.timing | while read x ; do if [ -f "$$x" ] ; then grep '^Chars' "$$x" | sed -e "s=^=$$x =" -e "s/timing/v/" -e "s/ Chars /:/" -e "s/ - \([0-9]*\)/-\1:/"; fi; done | sort -grk 3 | head -10
 COQDEFS := --language=none -r '/^[[:space:]]*\(Axiom\|Theorem\|Class\|Instance\|Let\|Ltac\|Definition\|Lemma\|Record\|Remark\|Structure\|Fixpoint\|Fact\|Corollary\|Let\|Inductive\|Coinductive\|Notation\|Proposition\|Module[[:space:]]+Import\|Module\)[[:space:]]+\([[:alnum:]'\''_]+\)/\2/'

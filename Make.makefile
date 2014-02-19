@@ -88,26 +88,26 @@ endif
 #                    #
 ######################
 
-VFILES:=topos/epis_monos.v\
-  limits/products.v\
-  limits/cones.v\
+VFILES:=pathnotations.v\
+  auxiliary_lemmas_HoTT.v\
+  precategories.v\
+  topos/epis_monos.v\
   limits/aux_lemmas_HoTT.v\
-  limits/pullbacks.v\
   limits/terminal.v\
+  limits/products.v\
+  functors_transformations.v\
+  limits/cones.v\
+  limits/pullbacks.v\
   limits/initial.v\
+  HLevel_n_is_of_hlevel_Sn.v\
+  category_hset.v\
   yoneda.v\
   whiskering.v\
   sub_precategories.v\
-  rezk_completion.v\
+  equivalences.v\
   precomp_fully_faithful.v\
   precomp_ess_surj.v\
-  precategories.v\
-  pathnotations.v\
-  HLevel_n_is_of_hlevel_Sn.v\
-  functors_transformations.v\
-  equivalences.v\
-  category_hset.v\
-  auxiliary_lemmas_HoTT.v
+  rezk_completion.v
 
 -include $(addsuffix .d,$(VFILES))
 .SECONDARY: $(addsuffix .d,$(VFILES))
@@ -133,7 +133,9 @@ endif
 all: $(VOFILES) 
 
 quick:
-	$(MAKE) all VO=vi
+	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) all VO=vi
+checkproofs:
+	$(COQC) $(COQDEBUG) $(COQFLAGS) -schedule-vi-checking $(J) $(VOFILES:%.vo=%.vi)
 gallina: $(GFILES)
 
 html: $(GLOBFILES) $(VFILES)

@@ -1,26 +1,26 @@
 -o Make.makefile
 -R . RezkCompletion
 
-auxiliary_lemmas_HoTT.v
-category_hset.v
-equivalences.v
-functors_transformations.v
-HLevel_n_is_of_hlevel_Sn.v
-pathnotations.v
-precategories.v
+# This list of files should be in reverse order, because coq_makefile will reverse it
+# before giving it to etags, and the order of files recorded by it matters for
+# tags-search.
+rezk_completion.v
 precomp_ess_surj.v
 precomp_fully_faithful.v
-rezk_completion.v
+equivalences.v
 sub_precategories.v
 whiskering.v
 yoneda.v
-
-
+category_hset.v
+HLevel_n_is_of_hlevel_Sn.v
 limits/initial.v
-limits/terminal.v
 limits/pullbacks.v
-limits/aux_lemmas_HoTT.v
 limits/cones.v
+functors_transformations.v
 limits/products.v
-
+limits/terminal.v
+limits/aux_lemmas_HoTT.v
 topos/epis_monos.v
+precategories.v
+auxiliary_lemmas_HoTT.v
+pathnotations.v

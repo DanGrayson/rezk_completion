@@ -1,3 +1,5 @@
+# -*- makefile-gmake -*-
+
 -o Make.makefile
 -R . RezkCompletion
 
@@ -24,3 +26,7 @@ topos/epis_monos.v
 precategories.v
 auxiliary_lemmas_HoTT.v
 pathnotations.v
+
+# Local Variables:
+# compile-command: "coq_makefile -f Make"
+# End:

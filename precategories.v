@@ -465,7 +465,8 @@ Proof. intros. apply (iso_set_isweq (fun f => h ;; f) (fun g => inv_from_iso h ;
        { intros f. refine (_ @ maponpaths (fun m => m ;; f) (pr2 (pr2 (pr2 h))) @ _).
          { apply assoc. } { apply id_left. } }
        { intros g. refine (_ @ maponpaths (fun m => m ;; g) (pr1 (pr2 (pr2 h))) @ _).
-         { apply assoc. } { apply id_left. } } Qed.
+         { apply assoc. } { apply id_left. } } 
+Qed.
 
 
 

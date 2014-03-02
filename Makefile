@@ -17,7 +17,7 @@ endif
 
 include Make.makefile
 
-TIME=gnu
+TIME=
 ifeq ($(TIME),gnu)
 TIMECMD = \time -f "%U sec, %M bytes: $*"
 else
